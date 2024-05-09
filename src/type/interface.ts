@@ -42,3 +42,43 @@ export interface Bank {
   account_number: string;
   branch: string;
 }
+
+export interface AttendaceLog {
+  clockIn: string;
+  clockOut: string;
+  createdAt: string;
+  timeDifference: string;
+  employee: {
+    address: string;
+    date_joined: string;
+    dob: string;
+    email: string;
+    first_name: string;
+    gender: string;
+    isDeleted: boolean;
+    last_name: string;
+    middle_name: string | null;
+    pan_number: string;
+    password: string;
+    phone: string | null;
+    photo: string;
+    roles: Role[];
+    salary: number;
+    __v: number;
+    _id: string;
+  };
+}
+
+export interface EmployeePerfomance {
+  first_name: string;
+  middle_name: string | null;
+  last_name: string;
+  photo: string;
+  role: string[];
+  email: string;
+  id: string;
+  totalWorkedTime: string;
+  totalWorkedTimeThisMonth: string;
+  averageWorkedTime: string;
+  totalAbsentThisMonth: number;
+}

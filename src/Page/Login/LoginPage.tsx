@@ -5,8 +5,7 @@ import { loginSchema, LoginSchemaInterface } from "../../type/form";
 import loginAction from "../../app/api/loginAction";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
-import authAction from "../../app/api/authAction";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   const {
@@ -18,24 +17,9 @@ export default function LoginPage() {
   });
 
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    authAction({
-      onSuccess: () => {
-        navigate("/");
-        setLoading(false);
-      },
-      onFailure: () => {
-        setLoading(false);
-      },
-    });
-  }, []);
 
   //hrms_innovation@gmail.com
-  //Pa$$w0rd
-
-  if (loading) return <Text>Loading</Text>;
+  //S@fn39tb$$
 
   return (
     <VStack
@@ -103,6 +87,7 @@ export default function LoginPage() {
             </Text>
           )}
         </VStack>
+        <Text as={Link} to={"/password/forget"} fontSize={"xxs"} color={'gray.600'}>Forget Password</Text>
         <Button
           w={"100%"}
           padding={"10px"}

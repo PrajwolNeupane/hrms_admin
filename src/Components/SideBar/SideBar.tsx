@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { TfiDashboard } from "react-icons/tfi";
+import { CiUnlock, CiClock1, CiCalculator2 } from "react-icons/ci";
 import { GoPeople } from "react-icons/go";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
@@ -41,6 +42,21 @@ function DrawerExample({
       icon: IoIosAddCircleOutline,
       title: "Add Employee",
       link: "/employee/add",
+    },
+    {
+      icon: CiCalculator2,
+      title: "Perfomance",
+      link: "/perfomance",
+    },
+    {
+      icon: CiClock1,
+      title: "Attendance Log",
+      link: "/attendance",
+    },
+    {
+      icon: CiUnlock,
+      title: "Change Password",
+      link: "/password/change",
     },
   ];
 

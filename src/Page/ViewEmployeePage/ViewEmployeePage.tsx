@@ -3,30 +3,54 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
   Grid,
   GridItem,
   HStack,
+  Icon,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import viewEmployeeAction from "../../app/api/viewEmployeeAction";
 import { Employee } from "../../type/interface";
+import { CiEdit } from "react-icons/ci";
+import { MdOutlineUpgrade } from "react-icons/md";
 import moment from "moment";
+import RaiseSalaryModal from "./RaiseSalaryModal";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import EditEmployeeModal from "./EditEmployeeModal";
 
 export default function ViewEmployeePage() {
   const { id } = useParams();
   const [employeeData, setEmployeeData] = useState<Employee | null>(null);
 
+  const {
+    isOpen: salaryIsOpen,
+    onOpen: salaryOnOpen,
+    onClose: salaryOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: editIsOpen,
+    onOpen: editOnOpen,
+    onClose: editOnClose,
+  } = useDisclosure();
+
+  const fetch = () => {
+    viewEmployeeAction({
+      id: id!,
+      onSuccess: (data) => {
+        setEmployeeData(data?.employee);
+      },
+    });
+  };
+
   useEffect(() => {
     if (id != "" || typeof id != "undefined") {
-      viewEmployeeAction({
-        id: id!,
-        onSuccess: (data) => {
-          setEmployeeData(data?.employee);
-        },
-      });
+      fetch();
     }
   }, [id]);
 
@@ -43,10 +67,17 @@ export default function ViewEmployeePage() {
     );
   };
 
+  if (employeeData == null) {
+    return <div>Closed</div>;
+  }
+
   return (
     <>
       <VStack padding={"20px 5%"} align={"start"} gap={"30px"}>
-        <Breadcrumb>
+        <Breadcrumb
+          spacing="4px"
+          separator={<ChevronRightIcon color="gray.500" w={"6"} h={"6"} />}
+        >
           <BreadcrumbItem>
             <BreadcrumbLink
               as={Link}
@@ -176,7 +207,57 @@ export default function ViewEmployeePage() {
             />
           </Grid>
         </HStack>
+        <HStack w={"100%"} justify="end" gap={"20px"}>
+          <Button
+            leftIcon={<Icon as={MdOutlineUpgrade} h={"6"} w={"6"} />}
+            fontSize={"xs"}
+            fontWeight={"medium"}
+            padding={"10px 2%"}
+            variant={"outline"}
+            border={"2px"}
+            borderColor={"brand.500"}
+            color={"brand.500"}
+            _hover={{
+              backgroundColor: "brand.500",
+              color: "white",
+            }}
+            onClick={() => {
+              salaryOnOpen();
+            }}
+          >
+            Raise Salary
+          </Button>
+          <Button
+            leftIcon={<Icon as={CiEdit} h={"6"} w={"6"} />}
+            fontSize={"xs"}
+            fontWeight={"medium"}
+            padding={"10px 4%"}
+            color={"whitesmoke"}
+            bgColor={"brand.500"}
+            _hover={{
+              backgroundColor: "brand.600",
+            }}
+            onClick={editOnOpen}
+          >
+            Edit
+          </Button>
+        </HStack>
       </VStack>
+      <RaiseSalaryModal
+        onSuccess={fetch}
+        isOpen={salaryIsOpen}
+        onClose={salaryOnClose}
+        data={{
+          id: employeeData?._id!,
+          salary: employeeData?.salary.toString()!,
+        }}
+      />
+      <EditEmployeeModal
+        onSuccess={fetch}
+        isOpen={editIsOpen}
+        onClose={editOnClose}
+        data={employeeData}
+      />
     </>
   );
 }

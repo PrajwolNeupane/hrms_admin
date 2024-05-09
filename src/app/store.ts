@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authReducer from "./reducer/authReducer";
+import resetPasswordReducer from "./reducer/resetPasswordReducer";
 
 export const store = configureStore({
   reducer: {
     Auth: authReducer,
+    ResetPassword: resetPasswordReducer,
   },
 });
 

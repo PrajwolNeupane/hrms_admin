@@ -14,6 +14,7 @@ import BarChart from "../../Components/Chart/BarChart";
 import dashAction from "../../app/api/dashAction";
 import { AdminDashboardData } from "../../type/interface";
 import { Link } from "react-router-dom";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 interface Props {}
 
@@ -30,7 +31,10 @@ const HomePage: FC<Props> = ({}) => {
 
   return (
     <VStack padding={"20px 5%"} align={"start"} gap={"30px"}>
-      <Breadcrumb>
+      <Breadcrumb
+        spacing="4px"
+        separator={<ChevronRightIcon color="gray.500" w={"6"} h={"6"} />}
+      >
         <BreadcrumbItem>
           <BreadcrumbLink
             as={Link}

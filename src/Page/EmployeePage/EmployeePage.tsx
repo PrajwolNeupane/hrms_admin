@@ -39,6 +39,7 @@ import moment from "moment";
 import deleteEmployeeAction from "../../app/api/deleteEmployeeAction";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function EmployeePage() {
   const [data, setData] = useState<Employee[]>([]);
@@ -98,7 +99,10 @@ export default function EmployeePage() {
   return (
     <>
       <VStack padding={"20px 5%"} align={"start"} gap={"30px"}>
-        <Breadcrumb>
+        <Breadcrumb
+          spacing="4px"
+          separator={<ChevronRightIcon color="gray.500" w={"6"} h={"6"} />}
+        >
           <BreadcrumbItem>
             <BreadcrumbLink
               as={Link}
