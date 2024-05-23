@@ -115,6 +115,7 @@ const HomePage: FC<Props> = ({}) => {
           padding={"20px"}
         >
           <LineChart
+            series="Attendance"
             title="Total Attendance"
             value={data?.employeeAttendance!}
             label={Array.from({ length: 30 }, (_, i) => i + 1)}
@@ -129,6 +130,7 @@ const HomePage: FC<Props> = ({}) => {
           padding={"20px"}
         >
           <BarChart
+            series="Total Employee Added"
             title="Employee Number"
             value={data?.employeeCreated!}
             label={[
@@ -157,6 +159,7 @@ const HomePage: FC<Props> = ({}) => {
         padding={"20px"}
       >
         <LineChart
+          series="Hours worked"
           title="Hours Worked"
           value={data?.employeeWorkHour!}
           label={Array.from({ length: 30 }, (_, i) => i + 1)}

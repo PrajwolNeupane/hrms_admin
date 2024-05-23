@@ -6,10 +6,12 @@ export default function BarChart({
   value,
   label,
   title,
+  series,
 }: {
   value: number[];
   label: string[];
   title: string;
+  series: string;
 }) {
   const [data, setData] = useState({
     label: [
@@ -37,14 +39,6 @@ export default function BarChart({
       title,
     });
   }, [value, label]);
-
-  const series = [
-    {
-      name: "Total Works Worked",
-      data: data.value,
-      color: "#9d03fc",
-    },
-  ];
 
   const options: ApexCharts.ApexOptions = {
     chart: {
@@ -78,7 +72,13 @@ export default function BarChart({
   return (
     <Chart
       options={options}
-      series={series}
+      series={[
+        {
+          name: series,
+          data: data.value,
+          color: "#9d03fc",
+        },
+      ]}
       type="bar"
       height="350px"
       width="100%"

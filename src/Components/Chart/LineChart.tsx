@@ -6,10 +6,12 @@ export default function LineChart({
   value,
   label,
   title,
+  series,
 }: {
   value: number[];
   label: number[];
   title: string;
+  series: string;
 }) {
   const [data, setData] = useState({
     label: Array.from({ length: 30 }, (_, i) => i + 1),
@@ -24,14 +26,6 @@ export default function LineChart({
       title,
     });
   }, [value, label]);
-
-  const series = [
-    {
-      name: "Total Works Worked",
-      data: data.value,
-      color: "#9d03fc",
-    },
-  ];
 
   const options: ApexCharts.ApexOptions = {
     chart: {
@@ -65,7 +59,13 @@ export default function LineChart({
   return (
     <Chart
       options={options}
-      series={series}
+      series={[
+        {
+          name: series,
+          data: data.value,
+          color: "#9d03fc",
+        },
+      ]}
       type="line"
       height="350px"
       width="100%"
